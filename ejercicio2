@@ -1,0 +1,67 @@
+program ejercicio1p1
+type
+ str17 = string [17];
+numeros = file of integer;
+
+procedure comparar (var cant: integer; n: integer);
+begin
+  if (n < 1500 ) then
+    cant:= cant +1;
+end;
+
+procedure recorrer (var archi: numeros; var suma, cant: integer);
+var
+ n: integer;
+begin
+
+   reset (archi)
+   while (not eof(archi)) do begin
+     read (archi, n);
+     comparar (cant, n);
+     suma:= suma +n;
+     writeln (n);
+  end;
+
+  close (archi);
+
+end;
+
+var
+ n: str17;
+ i, suma, cant, cont: integer;
+ archi: numeros;
+begin
+
+ writeln ('ingrese un nombre '); 
+ readln (n);
+
+ assign (archi, n);
+ rewrite (archi);
+
+ writeln ('ingrese un numero');
+ readln (i);
+
+ while (i <> 30000) do begin
+
+  write (archi, i);
+  
+  writeln ('ingrese un numero '); 
+  readln (i);
+
+ end;
+ close (archi);
+
+ suma:= 0;
+ cant:= 0;
+
+ recorrer (archi, suma, cant);
+
+ writeln ('la cantidad de numeros menos a 1500 es ', cant);
+
+ cont:= fileSize (archi);
+
+ writeln (' el promedio de los numeros ingresados es ', suma/cont);
+
+end.
+
+end.
