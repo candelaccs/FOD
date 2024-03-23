@@ -121,27 +121,6 @@ begin
 
 end;
 
-procedure agregarEmp (var archi: archi_empleados);
-var
- e: empleado
-begin
- 
-  leer (e); // lee el nuevo //
-  
-  while (e.ape <> 'fin') do begin
-    while (not eof(archi) and (e.cod <> f.cod) // busca en el archivo si ya existe el empleado //
-       read (archi, f);
-     
-    if (e.cod = f.cod) then // se fija por que salio
-      writeln (' ese empleado ya existe');
-    else begin
-      seek (archi, filesize(archi)); // va a la ultima pos //
-      write (archi, e); // añade nuevo empleado //
-    end; 
-    leer (e);
-  end;
-end;
-
 
 var
   archi: archi_empleados;
