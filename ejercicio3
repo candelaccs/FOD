@@ -20,6 +20,23 @@ type
     cod,edad,dni: integer;
   end;
   archi_empleados = file of empleado;
+  
+procedure leer (var e: empleado);
+begin
+
+  writeln ('ingrese su apellido');
+  readln (e.ape);
+  if (e.ape <> 'fin') do begin
+   writeln ('ingrese nombre');
+   readln (e.nom);
+   writeln ('ingrese dni');
+   readln (e.dni);
+   writeln ('ingrese edad');
+   readln (e.edad);
+   writeln ('ingrese codigo de empleado');
+   readln (e.cod);
+end; 
+  
 
 procedure crear (var archi: archi_empleados);
 var
@@ -31,22 +48,11 @@ begin
  readln (n);
  assign (archi, n);
  rewrite(archi);
- writeln ('ingrese su apellido');
- readln (e.ape);
+ leer (e);
 
  while (e.ape <> 'fin') do begin
-   writeln ('ingrese nombre');
-   readln (e.nom);
-   writeln ('ingrese dni');
-   readln (e.dni);
-   writeln ('ingrese edad');
-   readln (e.edad);
-   writeln ('ingrese codigo de empleado');
-   readln (e.cod);
    write (archi, e);
-
-   writeln ('ingrese su apellido');
-   readln (e.ape);
+   leer (e);
  end;
  close (archi);
 end;
@@ -115,6 +121,27 @@ begin
 
 end;
 
+procedure agregarEmp (var archi: archi_empleados);
+var
+ e: empleado
+begin
+ 
+  leer (e); // lee el nuevo //
+  
+  while (e.ape <> 'fin') do begin
+    while (not eof(archi) and (e.cod <> f.cod) // busca en el archivo si ya existe el empleado //
+       read (archi, f);
+     
+    if (e.cod = f.cod) then // se fija por que salio
+      writeln (' ese empleado ya existe');
+    else begin
+      seek (archi, filesize(archi)); // va a la ultima pos //
+      write (archi, e); // añade nuevo empleado //
+    end; 
+    leer (e);
+  end;
+end;
+
 
 var
   archi: archi_empleados;
@@ -144,5 +171,7 @@ begin
    end;   
    
  end;
+ 
+ writeln ('                                                ha salido del menu ');
  
 end.
