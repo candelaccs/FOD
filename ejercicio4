@@ -173,9 +173,35 @@ begin
   
   writeln (' archivo binario exportado a texto');
 end;
+
+procedure no_dnis  (var archi: archi_empleados; var txtdnis: Text);
+
+  function encero (dni:integer): boolean;
+  begin
+    encero:= (dni =00);
+  end;
+var
+  e: empleado;
+begin
+
+  assign (txtdnis, 'faltaDNIEmpleado.txt');
+  reset (archi);
+  rewrite (txtdnis);
+  
+  while (not eof(archi)) do begin
+    read (archi, e);
+    if (encero(e.dni))then begin
+      writeln (txtdnis, e.nom);
+      writeln (txtdnis, e.cod, ' ', e.edad, ' ', e.dni, ' ', e.ape);
+    end;
+  end;
+  close (archi);
+  close (txtdnis);
+end; 
 var
   archi: archi_empleados;
   architxt: Text;
+  txtdnis: Text;
   op: integer;
   salir: boolean;
 begin
@@ -191,7 +217,8 @@ begin
    writeln ('4. mostrar en pantalla los empleados mayores de 70 años, próximos a jubilarse');
    writeln ('5. agregar empleados/s ');
    writeln ('6. exportar archivo a texto ');
-   writeln ('7. salir');
+   writeln ('7. exportar los empleados que no tengan dni');
+   writeln ('8. salir');
    readln (op);
 
    case op of
@@ -202,7 +229,8 @@ begin
      4: jubilados (archi);
      5: agregarEmp (archi);
      6: exportar_txt (archi, architxt);
-     7: salir:= true;
+     7: no_dnis (archi, txtdnis); 
+     8: salir:= true;
    end;   
    
  end;
