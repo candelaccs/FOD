@@ -116,9 +116,9 @@ var
 begin
  
   leer (e); // lee el nuevo //
-  
+  reset (archi);
   while (e.ape <> 'fin') do begin
-    read (archi, f); // lee el primero
+    read (archi, f); // lee el primero para poder comparar codigos
     while ((not eof(archi)) and (e.cod <> f.cod))  do // busca en el archivo si ya existe el empleado //
       read (archi, f); // sigue leyendo
     if (e.cod = f.cod) then // se fija por que salio
@@ -129,6 +129,7 @@ begin
     end; 
     leer (e);
   end;
+  close (archi);
 end;
 
 procedure modificar_edad (var archi: archi_empleados);
