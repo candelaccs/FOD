@@ -165,8 +165,8 @@ begin
  
  reset (archibin);
  read (archibin, d);
- while (not eof(archibin) and (d.nom <> c.nom)) do 
-   read (archibin, c);
+ while (not eof(archibin) and (d.nom <> c.nom)) do // lo busco por nombre
+   read (archibin, d);
  if (d.nom = c.nom) then begin
    writeln (' ingrese el stock minimo');
    readln (c.smin);
