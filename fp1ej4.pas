@@ -142,13 +142,14 @@ begin
    writeln (' ingrese los datos del empleado que desea modificar' );
    leer (e);
    reset (archi);
-   read (archi, f);
+   read (archi, f); // se busca por codigo de empleado
    while ((not eof(archi)) and (e.cod <> f.cod))  do
       read (archi, f);
    if (e.cod = f.cod) then begin
       writeln (' ingrese la nueva edad ');
       readln (nueva_edad);
       e.edad:= nueva_edad;
+      seek(archi,filepos(archi)-1);
       write (archi, e)
    end
    else 
